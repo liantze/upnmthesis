@@ -1,0 +1,197 @@
+\documentclass[11pt,a4paper]{isodoc}
+\newcommand{\fileversion}{0.1}
+\newcommand\bankname{CIMB Bank}
+
+\def\accountdata{
+  \textbf{\accountdatatext:}\\
+  \begin{tabular}{@{}rl@{}}
+    \ifx\term\undefined\else
+             \termtext: & \term\ \daystext\\
+    \fi
+        \banknametext: & \bankname\\
+        \accountnotext: & \accountno\\
+    \ifx\accountname\undefined\else
+       \accountnametext: & \accountname{}\\
+    \fi
+    \ifx\routingno\undefined\else
+       \routingnotext: & \routingno{}\\
+    \fi
+        \referencetext: & \ourref\\
+    \ifforeign
+      \iflocalbank\else
+                  iban: & \scshape \iban\\
+                   bic: & \scshape \bic\\
+      \fi
+    \fi
+    \ifx\vatno\undefined\else
+      \vatnotext: & \vatno\\
+    \fi
+  \end{tabular}
+}
+
+% \usepackage{fontspec}
+% \setmainfont[Mapping=TeX]{Minion Pro}
+% \setsansfont[Mapping=TeX]{Myriad Pro}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{cmap}
+\usepackage{relsize}
+\usepackage{MinionPro}
+\usepackage{MyriadPro}
+\usepackage{microtype}
+\pdfmapfile{+minionpro.map}
+\pdfmapfile{+myriadpro.map}
+\usepackage{savesym}
+\savesymbol{EUR}
+\savesymbol{fax}
+\usepackage{marvosym,calc,intcalc}
+\usepackage{graphicx}
+\restoresymbol{OLD}{fax}
+\usepackage{spreadtab}
+\usepackage{enumitem}
+\setlist{noitemsep,leftmargin=*}
+
+\setupdocument{footer,
+  addresswidth=140,
+  company = {\textls{\LaTeX} Design, Typesetting \& Training},
+%  logoaddress={Tax file no.~(M'sian): SG11042302100},
+%  logoaddress={\makebox[.9em][l]{\Gentsroom}~Lim Lian Tze\\\makebox[.9em][l]{\Email}~liantze\string@gmail.com\\\makebox[.9em][l]{\Mundus}~liantze.penguinattack.org\\\makebox[.9em][l]{\Mobilefone}~012-5619\,124},
+  who = \textsc{Lim} Lian Tze (Ph.D.),
+  street = 21 Tingkat Meranti 6\\Taman Meranti,
+  city = Butterworth,
+  country={Penang, Malaysia},
+  countrycode={},
+  zip = 13000,
+  date=2015-09-17,
+  email= {\small liantze@gmail.com},
+  website = {\small liantze.penguinattack.org},
+  areacode=60,
+  phone = {\small12-5619\,124},
+  fax={},
+  subject=Quotation for UPNM Thesis \LaTeX\ Class),
+  foreign,localbank
+}
+
+
+\makeatletter
+\def\truncdiv#1#2{((#1-(#2-1)/2)/#2)}
+\def\moduloop#1#2{(#1-\truncdiv{#1}{#2}*#2)}
+\def\modulo#1#2{\number\numexpr\moduloop{#1}{#2}\relax}
+
+%\def\footfield#1#2#3{%
+%  \ifx#3\empty\else
+%    \Tbox{\footcount}{\footerpos}{90}{\noindent
+%      {\@hft#1}\\
+%        {\small #2#3}
+%    }
+%    \advance\footcount45
+%  \fi
+%}
+\def\isodoc@UKenglish{%
+  \gdef\accountdatatext {Bank details}
+  \gdef\banknametext{Bank name}
+  \gdef\accountnametext {in the name of}
+  \gdef\accountnotext   {Account no.}
+  \gdef\amounttext      {Amount}
+  \gdef\ccname          {cc}
+  \gdef\cellphonetext   {cellphone}
+  \gdef\chambertext     {ch.comm.}
+  \gdef\datetext        {Date}
+  \gdef\daystext        {days}
+  \gdef\descriptiontext {Description}
+  \gdef\emailtext       {\Email\ email}
+  \gdef\enclosurestext  {Enclosures:}
+  \gdef\enclosuretext   {Enclosure:}
+  \gdef\faxtext         {telefax}
+  \gdef\invoicetext     {quotation for service}
+  \gdef\oftext          {of}
+  \gdef\ourreftext      {Our reference}
+  \gdef\pagetext        {Page}
+  \gdef\phonetext       {\Mobilefone\ telephone}
+  \gdef\referencetext   {Reference}
+  \gdef\routingnotext   {\textsc{swift} code}
+  \gdef\subjecttext     {Subject:}
+  \gdef\termtext        {term of payment}
+  \gdef\totaltext       {Total}
+  \gdef\totext          {To}
+  \gdef\vatnotext       {vat no.}
+  \gdef\vattext         {Vat}
+  \gdef\websitetext     {\Mundus\ website}
+  \gdef\yourlettertext  {Your letter of}
+  \gdef\yourreftext     {Your reference}
+  \gdef\date            {\ifcase\month\or
+    January\or February\or March\or April\or May\or June\or
+    July\or August\or September\or October\or November\or December\fi
+    \space\number\day, \number\year}
+}
+\makeatother
+\newlength\wholength\settowidth\wholength{\who}
+\def\receivedstamped{Received \& Rubber Stamped}
+\newlength\rcvlength\settowidth\rcvlength{\receivedstamped}
+
+
+
+\begin{document}
+
+%\letter[
+\invoice[
+%  to={Dr.~Mohd Asyraf Zulkifley\\(\url{asyraf@eng.ukm.my})\\
+%Pusat Pengurusan Siswazah\\Universiti Kebangsaan Malaysia},
+  to = {Centre for Graduate Studies\\
+        Universiti Pertahanan Nasional Malaysia\\
+        Kem Perdana Sungai Besi\\
+        57000 Kuala Lumpur},
+  currency = MYR,
+  term=30,
+  accountname= Lim Lian Tze,
+  accountno=0206\,0061878\,52\,7,
+  routingno=CIBBMYKL,
+  ourref=\textsc{upnm-ltx}003,
+  yourletter=2015-09-10,
+  closing={Best regards},
+  autograph={Lian Tze \textsc{Lim} (Ph.D.)}
+]{
+%\STautoround*{}
+%\begin{spreadtab}%[\STsavecell\totalHrs{e6}]%
+\begin{tabularx}{\linewidth}{X @{\hspace{.5em}}  r}
+\sffamily Description & \sffamily Amount (\currency)\\
+\midrule
+Development of a \LaTeX\ class for typesetting UPNM theses
+ & 1600.00\\
+\cmidrule[.05em](lr){2-2}\\[-1.5em]
+\cmidrule[.05em](lr){2-2}
+\end{tabularx}
+
+\bigskip
+
+{\bfseries\scshape\Large development scope\par}
+\begin{itemize}
+\item A \LaTeX\ class file (\texttt{upnmthesis.cls}) implementing thesis style guidelines as set out by the Centre of Graduate Studies, UPNM.
+\item A \LaTeX\ document file (\texttt{sample-thesis.tex}) demonstrating the use of \texttt{upnmthesis.cls} to typeset a postgraduate thesis for submission to UPNM.
+\item A simple user manual explaining the use of \texttt{sample-thesis.tex} and \texttt{upnmthesis.cls}.
+\end{itemize}
+
+The client will compile the relevant formatting style guidelines, as well as existing sample theses if necessary, to be provided to the consultant.
+
+\bigskip
+
+{\bfseries\scshape\Large development timeline\par}
+\medskip
+%6 months after the guidelines and sample theses are communicated to the consultant.\\
+Estimated delivery: 20 October 2015
+
+\vskip4em
+
+Yours sincerely,
+
+\includegraphics[width=5.5em]{signature}\\[-1em]
+\rule{6em}{.4pt}\\
+\textbf{\textsc{Lim Lian Tze} (Ph.D.)}
+
+%\accountdata%\\[10ex]
+%Prepared by,\\[9ex]
+%\rule{\wholength}{.5pt}\hfill\rule{\rcvlength+6pt}{.5pt}\\
+%\hspace*{3pt}\who\hfill\receivedstamped\hspace*{3pt}\\
+}
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{upnmthesis}
+
+\usepackage{graphicx}
+\usepackage{lipsum}
+
+\loadglsentries{myacronyms}
+
+\begin{document}
+
+\frontmatter
+
+% \makecoverandtitlepage
+% \declarationpage
+\abstractfromfile{sample-abstract}
+\msabstractfromfile{sample-msabstract}
+% \acknowledgements{Thanks guys. I owe you many.}
+
+{\clearpage\SingleSpacing
+\tableofcontents\clearpage
+\listoftables\clearpage
+\listoffigures\clearpage
+%% Comment out the following line if
+%% you have two or less appendices
+\listofappendices\clearpage
+\printacronyms\clearpage
+}
+
+\mainmatter
+\input{sample-chap-intro}
+\input{sample-chap-dummy}
+
+\bibliography{myrefs}
+
+\begin{appendices}
+\input{sample-appen-manual}
+\input{sample-appen-try}
+\end{appendices}
+
+\chapter*{Biodata of Student}
+\addcontentsline{toc}{chapter}{\texorpdfstring{BIODATA OF STUDENT}{Biodata of Student}}
+
+\nociteown{Lim:2009}
+\bibliographyown{myrefs}
+
+\end{document}
