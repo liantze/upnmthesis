@@ -9,10 +9,27 @@
 % Defaults: UTF-8 input encoding; T1 font encoding
 %%%%%%%%%%
 \RequirePackage[T1]{fontenc}
-\RequirePackage[scaled]{helvet}
-\RequirePackage{newtxtext,newtxmath}
+\RequirePackage{helvet}
+%\RequirePackage{newtxtext,newtxmath}
+\RequirePackage{mathptmx}
 \RequirePackage{amsmath,amssymb,amsfonts,bm}
 \renewcommand\ttdefault{lmvtt}
+
+%%%%%%%%%%%
+% Information about the thesis
+%%%%%%%%%%%
+\def\theauthor{\textbf{!INSERT AUTHOR!}}
+\def\thetitle{\textbf{!INSERT TITLE!}}
+\def\@mtsubmissionyear{\textbf{!INSERT YEAR!}}
+\def\@mtsubmissionmonth{\textbf{!INSERT MONTH!}}
+\def\@mtdegree{\textbf{!INSERT DEGREE!}}
+\def\@mtvivadate{\textbf{!INSERT VIVA DATE!}}
+
+\newcommand{\submissionyear}[1]{\def\@mtsubmissionyear{#1}}
+\newcommand{\submissionmonth}[1]{\def\@mtsubmissionmonth{#1}}
+\newcommand{\degree}[1]{\def\@mtdegree{#1}}
+\newcommand{\vivadate}[1]{\def\@mtvivadate{#1}}
+
 
 %%%%%%%%%%
 % Load Bahasa and English
@@ -338,3 +355,67 @@
 \pretocmd{\bibliographyown}{%
   \addtocontents{toc}{\protect\vspace*{-\onelineskip}}%
 }{}{}
+
+\newcommand{\makecoverandtitlepage}{%
+  \makecoverpage%
+  \mbox{}\thispagestyle{empty}\clearpage% % leave a blank page
+  \maketitlepage%
+  \setcounter{page}{2}
+}
+
+\newcommand{\makecoverpage}{
+  \begingroup%
+  \changepage{-70mm}{15mm}{}{-15mm}{-15mm}{35mm}{}{}{}%
+  \begin{titlingpage}%
+  \SingleSpacing
+  \thispagestyle{empty}%
+  \fontsize{18pt}{20pt}\bfseries\selectfont\centering%
+  \MakeUppercase{\thetitle}\par%
+  \vfill%
+  \MakeUppercase{\theauthor}\par%
+  \vfill%
+  \MakeUppercase{\@mtdegree}\par\vspace{3\onelineskip}%
+  UNIVERSITY PERTAHANAN NASIONAL MALAYSIA
+  \par\vspace{3\onelineskip}%
+  \@mtsubmissionyear\par%
+  \end{titlingpage}%
+  \endgroup%
+}
+
+\newcommand{\maketitlepage}{%
+  \begin{titlingpage}%
+  \centering\SingleSpacing%
+  \textbf{\MakeUppercase{\thetitle}}\par%
+  \vfill%
+  \textbf{\MakeUppercase{\theauthor}}\par%
+  \vfill%
+  Thesis submitted to \textbf{Universiti Pertahanan Nasional Malaysia}, in fulfillment of the requirements of the Degree of \@mtdegree\par
+  \vfill
+  \textbf{\@mtsubmissionmonth\space\@mtsubmissionyear}\par%
+  \end{titlingpage}%
+}
+
+%%%%%%%%%%%%%%%%%%
+% Dedication
+%%%%%%%%%%%%%%%%%%
+\newcommand{\dedication}[1]{\newpage\mbox{}\thispagestyle{empty}%
+\begin{vplace}[.25]\itshape\centering#1\end{vplace}%
+\clearpage}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Acknowledgements
+%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{acknowledgements}{\chapter{Acknowledgements}}{}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Exam Committee Approval
+%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{examcommapproval}{
+  \SingleSpacing%
+  \noindent I certify that an Examination Committee has met on \@mtvivadate{} to conduct the final examination of \theauthor{} on his (or her) degree thesis entitled \textbf{`\thetitle'}. The committee recommends that the student be awared the \@mtdegree.
+
+  Members of the Examination Committee were as follows.
+}{
+  
+}
+
