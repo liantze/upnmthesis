@@ -8,6 +8,7 @@
 %%%%%%%%%%
 % Defaults: UTF-8 input encoding; T1 font encoding
 %%%%%%%%%%
+\RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{helvet}
 %\RequirePackage{newtxtext,newtxmath}
@@ -23,11 +24,13 @@
 \def\@mtsubmissionyear{\textbf{!INSERT YEAR!}}
 \def\@mtsubmissionmonth{\textbf{!INSERT MONTH!}}
 \def\@mtdegree{\textbf{!INSERT DEGREE!}}
+\def\@mtbachprogramme{\textbf{!INSERT PROGRAMME!}}
 \def\@mtvivadate{\textbf{!INSERT VIVA DATE!}}
 
 \newcommand{\submissionyear}[1]{\def\@mtsubmissionyear{#1}}
 \newcommand{\submissionmonth}[1]{\def\@mtsubmissionmonth{#1}}
 \newcommand{\degree}[1]{\def\@mtdegree{#1}}
+\newcommand{\bachprogramme}[1]{\def\@mtbachprogramme{#1}}
 \newcommand{\vivadate}[1]{\def\@mtvivadate{#1}}
 
 
@@ -49,7 +52,7 @@
 %%%%%%%%%
 % Load hyperref
 %%%%%%%%%
-\AtBeginDocument{\usepackage{hyperref}}
+\AtBeginDocument{\usepackage[breaklinks,pdfborder={0 0 0},pdfpagelabels,plainpages=false]{hyperref}}
 
 %%%%%%%%%%%%
 % Page layout
@@ -408,14 +411,123 @@
 \newenvironment{acknowledgements}{\chapter{Acknowledgements}}{}
 
 %%%%%%%%%%%%%%%%%%%%%%
-% Exam Committee Approval
+% Approval Forms
 %%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{examcommapproval}{
-  \SingleSpacing%
-  \noindent I certify that an Examination Committee has met on \@mtvivadate{} to conduct the final examination of \theauthor{} on his (or her) degree thesis entitled \textbf{`\thetitle'}. The committee recommends that the student be awared the \@mtdegree.
+\RequirePackage{pgfkeys}
+\RequirePackage{tabularx}
 
-  Members of the Examination Committee were as follows.
+\newtoggle{approvaladded}
+\togglefalse{approvaladded}
+
+\newenvironment{committee}{
+  \pgfkeys{%
+    /member/.is family, /member,
+    % Here are the options that a user can pass
+    default/.style = {
+      title = {},
+      institute = {Universiti Pertahanan Nasional Malaysia}, 
+      department = {},
+      role = {Member}
+    },
+    title/.estore in = \membertitle,
+    department/.estore in = \memberdepartment,
+    institute/.estore in = \memberinstitute,
+    role/.estore in = \memberrole
+  }%
+  \newcommand\member[2][]{%
+    \pgfkeys{/member, default, ##1}%
+    \mbox{}\newline
+    \textbf{##2} \newline
+    \ifdefempty{\membertitle}{}{\membertitle \newline}
+    \memberdepartment \newline
+    \memberinstitute \newline
+    (\memberrole) \newline
+    \mbox{}
+    & \\\hline%
+  }%
+  \tabularx{\textwidth}{| >{\raggedright\arraybackslash}X | >{\centering\arraybackslash}p{4cm} |}
+  \hline
+  & \emph{Signature}\\[-\onelineskip]
 }{
-  
+  \endtabularx
 }
 
+\newenvironment{examcommapproval}{%
+  \clearpage%
+    \nottoggle{approvaladded}{
+    \phantomsection%
+    \addcontentsline{toc}{chapter}{\texorpdfstring{APPROVAL}{Approval}}%
+    \global\toggletrue{approvaladded}%
+  }{}%
+  \SingleSpacing%
+  I certify that an Examination Committee has met on \textbf{\@mtvivadate} to conduct the final examination of \textbf{\theauthor} on his (or her) degree thesis entitled \textbf{`\thetitle'}. The committee recommends that the student be awared the \@mtdegree.\par
+  Members of the Examination Committee were as follows.\par
+  \committee
+}{
+  \endcommittee
+  \clearpage
+}
+
+\newenvironment{supervisoryapproval}[1][]{%
+  \clearpage%
+  \nottoggle{approvaladded}{
+    \phantomsection%
+    \addcontentsline{toc}{chapter}{\texorpdfstring{APPROVAL}{Approval}}%
+    \global\toggletrue{approvaladded}%
+  }{}%
+  \SingleSpacing%
+  \ifstrequal{#1}{ug}{%
+    This thesis was submitted to the Faculty of Engineering, University Pertahanan Nasional Malaysia and has been accepted as partial fulfillment of the requirement for the Bachelors degree in \textbf{\@mtbachprogramme}.%
+  }{%
+    This thesis was submitted to the Senate of Universiti Pertahanan Nasional Malaysia and has been accepted as fulfillment of the requirement for the \textbf{\@mtdegree}.%
+  }
+  The members of the Supervisory Committee were as follows.\par
+  \committee
+}{
+  \endcommittee
+  \clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%
+% Declaration form.
+\newcommand{\declarationpage}{%
+  \clearpage%
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{\texorpdfstring{DECLARATION}{Declaration}}%
+  \SingleSpacing%
+  { \centering
+    \rule{\textwidth}{1.5pt}\par
+    \textbf{UNIVERSITY PERTAHANAN NASIONAL MALAYSIA}\par
+    DECLARATION OF THESIS\par
+  }
+
+  { \setlength\extrarowheight{\onelineskip}%
+    \begin{tabularx}{0.95\textwidth}{@{}l @{\hspace{1em}:\hspace{1em}} >{\hrulefill}X}
+    Author's full name &\\
+    Date of birth &\\
+    Title &\\
+    Academic Session &\\
+    \end{tabularx}
+  }
+
+  I declare that this thesis is classified as:\\
+  { \setlength\extrarowheight{\onelineskip}%
+    \begin{tabularx}{\textwidth}{@{\Large$\square$ } >{\bfseries}l @{\hspace{1.5em}} >{\raggedright\arraybackslash}X @{}}
+    CONFIDENTIAL & (Contains confidential information under the Official Secret Act 1972)*\\
+    RESTRICTED & (Contains restricted information as specified by the organisation where research was done)*\\
+    OPEN ACCESS & I agree that my thesis to be published as online open access (full text)
+    \end{tabularx}
+  }
+
+  I acknowledge that Universiti Pertahanan Nasional Malaysia reserves the right as follows.
+
+  \begin{enumerate}
+  \item The thesis is the property of Universiti Pertahanan Nasional Malaysia.
+  \item The library of Universiti Pertahanan Nasional Malaysia has the right to make copies for the purpose of research only.
+  \item The library has the right to make copies of the thesis for academic exchanges.
+  \end{enumerate}
+
+%  \begin{tabular*}{\textwidth}{X @{\hfill} X}
+%  Signature & Signature of Main Supervisor
+%  \end{tabular*}
+}
