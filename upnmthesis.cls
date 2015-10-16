@@ -11,8 +11,8 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{helvet}
-%\RequirePackage{newtxtext,newtxmath}
-\RequirePackage{mathptmx}
+\RequirePackage{newtxtext,newtxmath}
+%\RequirePackage{mathptmx}
 \RequirePackage{amsmath,amssymb,amsfonts,bm}
 \renewcommand\ttdefault{lmvtt}
 
@@ -161,6 +161,7 @@
   \renewcommand*\refname{\texorpdfstring{REFERENCES}{References}}
   \renewcommand*\bibname{\texorpdfstring{BIBLIOGRAPHY}{Bibliography}}
 }
+
 %%%%%%%%%%
 % List of Publications
 %%%%%%%%%%
@@ -521,13 +522,31 @@
 
   I acknowledge that Universiti Pertahanan Nasional Malaysia reserves the right as follows.
 
+  \vspace*{-\onelineskip}
   \begin{enumerate}
+  \tightlist
   \item The thesis is the property of Universiti Pertahanan Nasional Malaysia.
   \item The library of Universiti Pertahanan Nasional Malaysia has the right to make copies for the purpose of research only.
   \item The library has the right to make copies of the thesis for academic exchanges.
   \end{enumerate}
 
-%  \begin{tabular*}{\textwidth}{X @{\hfill} X}
-%  Signature & Signature of Main Supervisor
-%  \end{tabular*}
+  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}X @{\hspace{.25\textwidth}} >{\centering\arraybackslash}X}
+  \\
+  \hrulefill \newline Signature & 
+  \hrulefill \newline Signature of Main Supervisor\\[1cm]
+  \hrulefill \newline IC/Passport No. & 
+  \hrulefill \newline Name of Main Supervisor\\[\onelineskip]
+  Date: \hrulefill & Date: \hrulefill
+  \end{tabularx}
+
+  \hangfrom{Note: *\hspace{1em}}{If the thesis is CONFIDENTIAL OR RESTRICTED, please attach the letter from the organisation stating the period and reasons for confidentiallity and restriction.}\par
+  \rule{\textwidth}{1.5pt}
 }
+
+%%%%%%%%%%%
+% Biodata of Student
+%%%%%%%%%%%
+\newenvironment{biodata}{%
+  \chapter*{Biodata of Student}
+  \addcontentsline{toc}{chapter}{\texorpdfstring{BIODATA OF STUDENT}{Biodata of Student}}
+}{}

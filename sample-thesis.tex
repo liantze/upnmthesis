@@ -63,30 +63,36 @@
 \declarationpage
 
 
+%% Content lists
 {\clearpage\SingleSpacing
-\tableofcontents\clearpage
+\tableofcontents*\clearpage
 \listoftables\clearpage
 \listoffigures\clearpage
 %% Comment out the following line if
 %% you have two or less appendices
-\listofappendices\clearpage
+% \listofappendices\clearpage
 \printacronyms\clearpage
 }
 
 \mainmatter
+%% Recommended to put chapters in separate files
 \input{sample-chap-intro}
 \input{sample-chap-dummy}
 
+%% Your .bib bibliography file (without .bib extension)
 \bibliography{myrefs}
 
+%% Recommended to put appendices in separate files
 \begin{appendices}
 \input{sample-appen-manual}
 \input{sample-appen-try}
 \end{appendices}
 
-% \chapter*{Biodata of Student}
-% \addcontentsline{toc}{chapter}{\texorpdfstring{BIODATA OF STUDENT}{Biodata of Student}}
+%% Your biodata, in biodata.tex
+\input{biodata}
 
+%% List of your own publications -- make sure you've
+%% defined them in your bibliography .bib file.
 \nociteown{Lim:2009}
 \bibliographyown{myrefs}
 
