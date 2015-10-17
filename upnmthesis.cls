@@ -4,6 +4,12 @@
 \LoadClass[12pt,a4paper,oneside]{memoir}
 \RequirePackage{etoolbox}
 
+%%%%%%%%%%
+% Filter some annoying warning messages
+%%%%%%%%%%
+\RequirePackage{silence}
+\WarningFilter{babel}{No hyphenation patterns were preloaded}
+\WarningFilter{inputenc}{inputenc package ignored with utf8 based engines}
 
 %%%%%%%%%%
 % Defaults: UTF-8 input encoding; T1 font encoding
@@ -11,8 +17,8 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{helvet}
-\RequirePackage{newtxtext,newtxmath}
-%\RequirePackage{mathptmx}
+%\RequirePackage{newtxtext,newtxmath}
+\RequirePackage{mathptmx}
 \RequirePackage{amsmath,amssymb,amsfonts,bm}
 \renewcommand\ttdefault{lmvtt}
 
@@ -25,12 +31,14 @@
 \def\@mtsubmissionmonth{\textbf{!INSERT MONTH!}}
 \def\@mtdegree{\textbf{!INSERT DEGREE!}}
 \def\@mtbachprogramme{\textbf{!INSERT PROGRAMME!}}
+\def\@mtfaculty{\textbf{!INSERT FACULTY!}}
 \def\@mtvivadate{\textbf{!INSERT VIVA DATE!}}
 
 \newcommand{\submissionyear}[1]{\def\@mtsubmissionyear{#1}}
 \newcommand{\submissionmonth}[1]{\def\@mtsubmissionmonth{#1}}
 \newcommand{\degree}[1]{\def\@mtdegree{#1}}
 \newcommand{\bachprogramme}[1]{\def\@mtbachprogramme{#1}}
+\newcommand{\faculty}[1]{\def\@mtfaculty{#1}}
 \newcommand{\vivadate}[1]{\def\@mtvivadate{#1}}
 
 
@@ -95,7 +103,7 @@
 %%%%%%%%%%
 % Load the glossaries package
 %%%%%%%%%%
-\RequirePackage[toc,nonumberlist,shortcuts,translate=false,style=long,acronym]{glossaries}
+\RequirePackage[noredefwarn,toc,nonumberlist,shortcuts,translate=false,style=long,acronym]{glossaries}
 \makeglossaries
 
 %%%%%%%%%%%%
@@ -478,7 +486,7 @@
   }{}%
   \SingleSpacing%
   \ifstrequal{#1}{ug}{%
-    This thesis was submitted to the Faculty of Engineering, University Pertahanan Nasional Malaysia and has been accepted as partial fulfillment of the requirement for the Bachelors degree in \textbf{\@mtbachprogramme}.%
+    This thesis was submitted to the \@mtfaculty, University Pertahanan Nasional Malaysia and has been accepted as partial fulfillment of the requirement for the Bachelors degree in \textbf{\@mtbachprogramme}.%
   }{%
     This thesis was submitted to the Senate of Universiti Pertahanan Nasional Malaysia and has been accepted as fulfillment of the requirement for the \textbf{\@mtdegree}.%
   }
@@ -532,9 +540,9 @@
 
   \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}X @{\hspace{.25\textwidth}} >{\centering\arraybackslash}X}
   \\
-  \hrulefill \newline Signature & 
+  \hrulefill \newline Signature &
   \hrulefill \newline Signature of Main Supervisor\\[1cm]
-  \hrulefill \newline IC/Passport No. & 
+  \hrulefill \newline IC/Passport No. &
   \hrulefill \newline Name of Main Supervisor\\[\onelineskip]
   Date: \hrulefill & Date: \hrulefill
   \end{tabularx}
@@ -550,3 +558,5 @@
   \chapter*{Biodata of Student}
   \addcontentsline{toc}{chapter}{\texorpdfstring{BIODATA OF STUDENT}{Biodata of Student}}
 }{}
+
+\endinput
