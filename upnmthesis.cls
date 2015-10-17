@@ -1,8 +1,26 @@
+%%%%%%%%%%%%
+%% This is upnmthesis.cls, created by Lian Tze LIM (liantze@gmail.com)
+%% for the Centre of Graduate Studies, Universiti Pertahanan Nasional
+%% Malaysia.
+%% http://liantze.penguinattack.org/latextypesetting.html#upnmthesis
+%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{upnmthesis}[2015/10/20 LaTeX2e class for Universiti Pertahanan Nasional Malaysia (UPNM) v1.0.  Copyright (c) 2015 Lim Lian Tze (liantze@gmail.com)]
+\ProvidesClass{upnmthesis}[2015/10/20 LaTeX2e class for Universiti Pertahanan Nasional Malaysia (UPNM) v1.0.  Copyright (c) 2015 Lian Tze LIM (liantze@gmail.com)]
 
 \LoadClass[12pt,a4paper,oneside]{memoir}
 \RequirePackage{etoolbox}
+
+%%%%%%%%%%
+% Class option whether this is an undergrad thesis.
+% Default is none (i.e. postgrad thesis).
+%%%%%%%%%%
+\newif\if@undergrad
+\newif\if@microtype
+\newif\if@newtx
+\DeclareOption{undergrad}{\@undergradtrue}
+\DeclareOption{microtype}{\@microtypetrue}
+\DeclareOption{newtx}{\@newtxtrue}
+\ProcessOptions
 
 %%%%%%%%%%
 % Filter some annoying warning messages
@@ -10,6 +28,7 @@
 \RequirePackage{silence}
 \WarningFilter{babel}{No hyphenation patterns were preloaded}
 \WarningFilter{inputenc}{inputenc package ignored with utf8 based engines}
+\WarningFilter{tex}{destination with the same identifier}
 
 %%%%%%%%%%
 % Defaults: UTF-8 input encoding; T1 font encoding
@@ -17,10 +36,14 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{helvet}
-%\RequirePackage{newtxtext,newtxmath}
-\RequirePackage{mathptmx}
+\if@newtx%
+  \IfFileExists{newtxmath.sty}{\RequirePackage{newtxtext,newtxmath}}{\RequirePackage{mathptmx}}
+\else%
+  \RequirePackage{mathptmx}
+\fi
 \RequirePackage{amsmath,amssymb,amsfonts,bm}
 \renewcommand\ttdefault{lmvtt}
+\if@microtype\RequirePackage{microtype}\fi
 
 %%%%%%%%%%%
 % Information about the thesis
@@ -58,9 +81,14 @@
 }
 
 %%%%%%%%%
-% Load hyperref
+% Load hyperref and glossaries -- glossaries has to be loaded after
+% hyperref to make the hyperlinks work properly.
 %%%%%%%%%
-\AtBeginDocument{\usepackage[breaklinks,pdfborder={0 0 0},pdfpagelabels,plainpages=false]{hyperref}}
+\AtEndPreamble{%
+  \usepackage[breaklinks,pdfborder={0 0 0},pdfpagelabels,plainpages=false]{hyperref}%
+  \usepackage[noredefwarn,toc,nonumberlist,shortcuts,translate=false,style=long,acronym]{glossaries}
+  \makeglossaries
+}
 
 %%%%%%%%%%%%
 % Page layout
@@ -99,12 +127,6 @@
 \renewcommand{\foottextfont}{\tiny}
 \setlength\footnotesep{\onelineskip}
 
-
-%%%%%%%%%%
-% Load the glossaries package
-%%%%%%%%%%
-\RequirePackage[noredefwarn,toc,nonumberlist,shortcuts,translate=false,style=long,acronym]{glossaries}
-\makeglossaries
 
 %%%%%%%%%%%%
 % Chapter headings
@@ -365,20 +387,30 @@
 }{}{}
 
 \pretocmd{\bibliographyown}{%
+  \nobibintoc%
   \addtocontents{toc}{\protect\vspace*{-\onelineskip}}%
+  \renewcommand{\prebibhook}{%
+    \phantomsection%
+    \addcontentsline{toc}{chapter}{\texorpdfstring{LIST OF PUBLICATIONS}{List of Publications}}%
+  }
 }{}{}
 
+%%%%%%%%%%%%%%%%%%%%%%%
+% Cover and title pages
+%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\makecoverandtitlepage}{%
+  \renewcommand{\thepage}{C\arabic{page}}%
   \makecoverpage%
   \mbox{}\thispagestyle{empty}\clearpage% % leave a blank page
+  \renewcommand{\thepage}{\arabic{page}}%
+  \pagenumbering{roman}%
   \maketitlepage%
-  \setcounter{page}{2}
 }
 
 \newcommand{\makecoverpage}{
   \begingroup%
   \changepage{-70mm}{15mm}{}{-15mm}{-15mm}{35mm}{}{}{}%
-  \begin{titlingpage}%
+  \begin{titlingpage*}%
   \SingleSpacing
   \thispagestyle{empty}%
   \fontsize{18pt}{20pt}\bfseries\selectfont\centering%
@@ -390,12 +422,12 @@
   UNIVERSITY PERTAHANAN NASIONAL MALAYSIA
   \par\vspace{3\onelineskip}%
   \@mtsubmissionyear\par%
-  \end{titlingpage}%
+  \end{titlingpage*}%
   \endgroup%
 }
 
 \newcommand{\maketitlepage}{%
-  \begin{titlingpage}%
+  \begin{titlingpage*}%
   \centering\SingleSpacing%
   \textbf{\MakeUppercase{\thetitle}}\par%
   \vfill%
@@ -404,8 +436,13 @@
   Thesis submitted to \textbf{Universiti Pertahanan Nasional Malaysia}, in fulfillment of the requirements of the Degree of \@mtdegree\par
   \vfill
   \textbf{\@mtsubmissionmonth\space\@mtsubmissionyear}\par%
-  \end{titlingpage}%
+  \end{titlingpage*}%
 }
+
+%%%%%%%%%%%%%%%%%%
+% Needs a blank page at the end
+%%%%%%%%%%%%%%%%%%
+\AtEndDocument{\clearpage\mbox{}\thispagestyle{empty}\clearpage}
 
 %%%%%%%%%%%%%%%%%%
 % Dedication
@@ -461,23 +498,28 @@
   \endtabularx
 }
 
-\newenvironment{examcommapproval}{%
-  \clearpage%
-    \nottoggle{approvaladded}{
-    \phantomsection%
-    \addcontentsline{toc}{chapter}{\texorpdfstring{APPROVAL}{Approval}}%
-    \global\toggletrue{approvaladded}%
-  }{}%
-  \SingleSpacing%
-  I certify that an Examination Committee has met on \textbf{\@mtvivadate} to conduct the final examination of \textbf{\theauthor} on his (or her) degree thesis entitled \textbf{`\thetitle'}. The committee recommends that the student be awared the \@mtdegree.\par
-  Members of the Examination Committee were as follows.\par
-  \committee
-}{
-  \endcommittee
-  \clearpage
-}
+\RequirePackage{comment}
+\if@undergrad
+  \excludecomment{examcommapproval}%
+\else
+  \newenvironment{examcommapproval}{%
+    \clearpage%
+      \nottoggle{approvaladded}{
+      \phantomsection%
+      \addcontentsline{toc}{chapter}{\texorpdfstring{APPROVAL}{Approval}}%
+      \global\toggletrue{approvaladded}%
+    }{}%
+    \SingleSpacing%
+    I certify that an Examination Committee has met on \textbf{\@mtvivadate} to conduct the final examination of \textbf{\theauthor} on his (or her) degree thesis entitled \textbf{`\thetitle'}. The committee recommends that the student be awared the \@mtdegree.\par
+    Members of the Examination Committee were as follows.\par
+    \committee
+  }{
+    \endcommittee
+    \clearpage
+  }
+\fi
 
-\newenvironment{supervisoryapproval}[1][]{%
+\newenvironment{supervisoryapproval}{%
   \clearpage%
   \nottoggle{approvaladded}{
     \phantomsection%
@@ -485,11 +527,11 @@
     \global\toggletrue{approvaladded}%
   }{}%
   \SingleSpacing%
-  \ifstrequal{#1}{ug}{%
+  \if@undergrad%
     This thesis was submitted to the \@mtfaculty, University Pertahanan Nasional Malaysia and has been accepted as partial fulfillment of the requirement for the Bachelors degree in \textbf{\@mtbachprogramme}.%
-  }{%
+  \else%
     This thesis was submitted to the Senate of Universiti Pertahanan Nasional Malaysia and has been accepted as fulfillment of the requirement for the \textbf{\@mtdegree}.%
-  }
+  \fi
   The members of the Supervisory Committee were as follows.\par
   \committee
 }{

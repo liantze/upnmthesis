@@ -1,11 +1,27 @@
+%%%%%%%%%%%%%%%%%%
+%% Sample thesis using upnmthesis.cls, October 20, 2015.
+%% by Lian Tze LIM (liantze@gmail.com)
+%% http://liantze.penguinattack.org/latextypesetting.html#upnmthesis
+%%
+%% Possible options:
+%% undergrad -- If you're writing an undergraduate thesis. There will then
+%%              be no exam committee approval (even if you have specified
+%%              examcommapproval), and the wordings of the supervisory
+%%              committee approval will be different. Remember to specify
+%%              your \faculty and \bachprogramme if using this option.
+%% newtx --     Loads the newtxtext and newtxmath font packages if these
+%%              packages are installed; they have nicer math fonts.
+%%              Otherwise mathptmx will be loaded as default.
+%% microtype -- Even nicer typographic output! Reduces chances of hyphenation
+%%              but *sometimes* (though rare) may cause an endless loop as
+%%              the typesetting engine tries to find an optimal line break.
+%%%%%%%%%%%%%%%%%%
+%\documentclass[undergrad,newtx,microtype]{upnmthesis}
 \documentclass{upnmthesis}
 
 %% Load any other packages you need here
 \usepackage{graphicx}
 \usepackage{lipsum}
-
-%% Load myacronyms.tex, which contains your abbreviations etc
-\loadglsentries{myacronyms}
 
 %% Information about your thesis
 \author{Muhammad Syafiq bin Md.~Akhir}
@@ -13,14 +29,16 @@
 \degree{Doctor of Philosophy}
 
 %% If Bachelor programme, you'll need to uncomment and specify the following:
-% \bachprogramme{Chemical Engineering}
-% \faculty{Faculty of Engineering}
+\bachprogramme{Chemical Engineering}
+\faculty{Faculty of Engineering}
 
 \submissionyear{2011}
 \submissionmonth{October}
 \vivadate{25 August 2011}
 
 \begin{document}
+%% Load myacronyms.tex, which contains your abbreviations etc
+\input{myacronyms}
 
 \frontmatter
 
@@ -51,8 +69,8 @@
   \member[title=Associate Professor, department={School of Chemical Engineering}, institute={Imperial College}, role={External Examiner}]{Name of External, PhD}
 \end{examcommapproval}
 
-%% Supervisory Committee Approval: Uncomment the [ug] option if undergraduate.
-\begin{supervisoryapproval}%[ug]
+%% Supervisory Committee Approval
+\begin{supervisoryapproval}
   % Supervisory Committee Chairman
   \member[title={Associate Professor}, role={Chairman}, department={Faculty of Engineering}]{Name of Chairperson, PhD}
   % Supervisory Committee Member 1
@@ -96,7 +114,7 @@
 
 %% List of your own publications -- make sure you've
 %% defined them in your bibliography .bib file.
-\nociteown{Lim:2009}
+\nociteown{Lim:2009,Bond:etal:WordNetBahasa:2014,Lim:etal:2014,Lim:etal:acl:lookup}
 \bibliographyown{myrefs}
 
 \end{document}
