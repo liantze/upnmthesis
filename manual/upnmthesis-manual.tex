@@ -1,4 +1,4 @@
-\documentclass[a4paper,nofonts,raggedright,notitlepage]{tufte-handout}
+\documentclass[a4paper,nofonts,raggedright,titlepage,openany]{tufte-book}
 
 % \usepackage[utf8]{inputenc}
 % \usepackage[T1]{fontenc}
@@ -23,6 +23,23 @@
   \renewcommand{\textsc}[1]{\smallcapsspacing{\textsmallcaps{#1}}}
 \fi
 
+\usepackage{ragged2e}
+
+\renewcommand{\maketitlepage}{%
+  \cleardoublepage
+  \begin{fullwidth}%
+    \sffamily
+    \RaggedRight\sloppy% <-- added this line
+    \fontsize{24}{26}\selectfont\par\noindent\textcolor{darkgray}{\smallcaps{\thanklessauthor}}%
+    \vspace{11.5pc}%
+    \fontsize{40}{44}\selectfont\par\noindent\textcolor{darkgray}{\smallcaps{\thanklesstitle}}%
+    \vfill
+    \fontsize{16}{18}\selectfont\par\noindent{\thanklesspublisher}%
+  \end{fullwidth}%
+  \thispagestyle{empty}%
+  \clearpage
+}
+
 %% Font settings suggested by fbb documentation.
 % \usepackage{textcomp} % to get the right copyright, etc.
 % \usepackage[lining,tabular]{fbb} % so math uses tabular lining figures
@@ -34,32 +51,49 @@
 \setsidenotefont{\sffamily\footnotesize}
 \setmarginnotefont{\sffamily\footnotesize}
 \setcaptionfont{\sffamily\itshape\footnotesize}
+\titleformat{\part}{\mdseries\huge}{\textsc{Part \thepart}}{1em}{\textsc}
 
 \usepackage[os=win]{menukeys}
 \usepackage{graphicx}
 
-\setcounter{secnumdepth}{3}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
 \usepackage{enumitem}
 \setlist{noitemsep}
 
 \usepackage{minted}
 
-\title[Guide on Using upnmthesis]{Guide on Using \texttt{upnmthesis} for Writing Universiti Pertahanan Nasional Malaysia Theses with \LaTeX}
-\date{version 1.0, October 20, 2015}
-\author{Lian Tze Lim, Ph.D. (liantze\string@gmail.com)}
+\usepackage{silence}
+\WarningFilter{latex}{Marginpar on page}
+
+\newsavebox{\edition}
+\savebox{\edition}{\sffamily\LARGE\smallcaps{version 1.0\hspace{2em}October 20, 2015}}
+
+\title[Guide on Using upnmthesis]{A \LaTeX\  Class \& Template for UPNM Theses\\\noindent%
+\usebox{\edition}}
+%{Guide on Using \texttt{upnmthesis} for Writing Universiti Pertahanan Nasional Malaysia Theses with \LaTeX}
+% \subtitle{version 1.0, October 20, 2015}
+\author{Lian Tze Lim, Ph.D.}
+\publisher{%
+\makebox[1em]{\faEnvelopeO{}}\enspace\smallcaps{liantze\string@gmail.com}\\\noindent
+\makebox[1em]{\faGlobe{}}\enspace\smallcaps{http://liantze.penguinattack.org/}%
+}
 
 \begin{document}
 
 \maketitle
 
-\begin{abstract}
+% \begin{abstract}
 \texttt{upnmthesis} is a \LaTeX\ class \marginnote{The latest version of this template can be downloaded from \url{http://liantze.penguinattack/latextypesetting.html\#upnmthesis}.} for authoring theses that fulfil formatting specifications required by Universiti Pertahanan Nasional Malaysia (\textsc{upnm}). This class and template was commissioned by the university's Centre of Graduate Studies in October, 2015, for both undergraduate and postgraduate theses.
 
 A sample \texttt{sample-thesis.tex}, as well as relevant sample chapters, are included in the package,\marginnote{\texttt{upnmthesis} is available as a template on Overleaf.} which I recommend you modify for your own thesis write-up. (You can rename it, but I'll stick with the file name `\texttt{sample-thesis.tex}' throughout this guide.)
-\end{abstract}
+% \end{abstract}
 
+\tableofcontents
 
-\medskip
+% \smallskip
+
+\chapter{Setting Up}
 
 \section{Compiling the Template the Easy Way}\sectionnote{\faCloud{} In the cloud!}
 You may want to consider writing your thesis in the cloud, so that you won't have to maintain your own local \LaTeX{} installation or setting up the processing tools.
@@ -114,15 +148,13 @@ $  bibtex own
 
 
 \subsection{Compiling \texttt{thesis.tex}}\sectionnote{\faCode{} Compilation steps}
-When using TeXworks, the processing tools should be run on \texttt{thesis.tex} in the following sequence:
+When using TeXworks, the processing tools should be run on \texttt{thesis.tex} in the following sequence: 
 \begin{enumerate}
-\item pdfLaTeX + BibTeX + Makeindex
+\item pdfLaTeX + BibTeX + Makeindex \marginnote{You will need to run `List of Acronyms' again if you add and use a new acronym. Similarly, run `Publication List' again if you add a new self publication. Don't forget to run `pdfLaTeX + BibTeX + Makeindex' after that!}
 \item List of Acronyms
 \item Publication List
 \item pdfLaTeX + BibTeX + Makeindex
 \end{enumerate}
-
-You will need to run `List of Acronyms' again if you add and use a new acronym. Similarly, run `Publication List' again if you add a new self publication. Don't forget to run `pdfLaTeX + BibTeX + Makeindex' after that!
 
 \subsection{Why is there a blank page before the title page and at the end?!}\sectionnote{\faQuestion\faExclamation{} What, blank pages?!}
 The thesis preparation guidelines say there needs to be a blank page between the cover and the title page, and another at the very end, so \textsf{umalayathesis} forces one just in case you forgot to insert one. \faSmileO
@@ -130,5 +162,38 @@ The thesis preparation guidelines say there needs to be a blank page between the
 \subsection{Printing from Acrobat Reader}\sectionnote{\faPrint{} Make sure the print out isn't shrunk!}
 Remember to set the \textbf{paper size} to \textbf{A4} and \textbf{page scaling} to \textbf{None} in the \textsf{Print} dialog, otherwise the margins would be incorrect.
 
+
+\chapter{Using the Template}
+
+\section{Document Class Options}
+
+\section{Front Matter}
+
+\subsection{Information about Your Thesis}
+
+\subsection{Cover Pages}
+
+\subsection{Dedication \& Acknowledgements}
+
+\subsection{Abstracts}
+
+\subsection{Approval Forms}
+
+\subsection{Declaration}
+
+\subsection{Content Lists}
+
+
+\section{Main Chapters}
+
+
+\section{Back Matter}
+\subsection{Bibliography}
+
+\subsection{Appendices}
+
+\subsection{Biodata}
+
+\subsection{Publication List}
 
 \end{document}
