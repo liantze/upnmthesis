@@ -485,7 +485,7 @@
     \mbox{}\newline
     \textbf{##2} \newline
     \ifdefempty{\membertitle}{}{\membertitle \newline}
-    \memberdepartment \newline
+    \ifdefempty{\memberdepartment}{}{\memberdepartment \newline}
     \memberinstitute \newline
     (\memberrole) \newline
     \mbox{}
