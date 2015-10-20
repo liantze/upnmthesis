@@ -65,11 +65,11 @@
 \setlist[itemize,enumerate]{noitemsep}
 
 \usepackage{minted}
-\setminted[LaTeX]{breaklines}
-\setmintedinline{bgcolor={Beige!50!white}}
+\setminted[LaTeX]{breaklines,breaksymbolleft={\phantom{\ttfamily aaaa}}}
+\setmintedinline{bgcolor={Beige!30!white}}
 
 \usepackage{mdframed}
-\mdfsetup{backgroundcolor=Beige!50!white,hidealllines=true}
+\mdfsetup{backgroundcolor=Beige!30!white,hidealllines=true}
 \surroundwithmdframed{minted}
 
 \usepackage{silence}
@@ -210,19 +210,16 @@ To facilitate automatic sorting and expansion of abbreviations, \texttt{upnmthes
 \input{myacronyms}
 \end{minted}
 
-\directory{myacronyms.tex} can contain abbreviation/acronym definitions that take the form of \mintinline{LaTeX}{\newacronym{label}{abbreviated form or symbol}{full form}}:
+\directory{myacronyms.tex} can contain abbreviation/acronym definitions that take the form of\\\mintinline{LaTeX}{\newacronym{label}{abbreviated form or symbol}{full form}}:
 
-\begin{fullwidth}
 \begin{minted}{LaTeX}
 \newacronym{LI}{LI}{lexical item}
 %% need to specify plural forms explicitly, otherwise
 %% will come out as "part of speechs"
-\newacronym[firstplural={parts of speech (POS)},plural={POS}]%
-{POS}{POS}{part of speech}
+\newacronym[firstplural={parts of speech (POS)}, plural={POS}]{POS}{POS}{part of speech}
 \newacronym{NLP}{NLP}{Natural Language Processing}
 \newacronym{theta}{$\theta$}{temperature degree}
 \end{minted}
-\end{fullwidth}
 
 Only abbreviations that are actually called in the main text \marginnote{section \ref{sec:texworks:makeglossaries}} via \mintinline{LaTeX}{\gls} and related commands,will be printed \marginnote{\mintinline{LaTeX}{\printacronyms}, section \ref{sec:content:lists}} in the List of Abbreviations.
 
@@ -288,32 +285,6 @@ If you are writing a postgraduate thesis (default mode), you will need two appro
 
 To produce the Examination Committee approval form, you'll need to specify the committee \mintinline{LaTeX}{\member}s (Chairman, the two Internal Examiners and the External Examiner) in the \mintinline{LaTeX}{examcommapproval} environment: \marginnote{The \texttt{examcommapproval} environment will be ignored if you have specified the \texttt{undergrad} class option.}
 
-\begin{minted}{LaTeX}
-\begin{examcommapproval}
-  % Exam Committee Chairman
-  \member[title=Professor,
-          department={Faculty of Mathematics},
-          role={Chairman}]
-         {Name of Chairperson, PhD}
-  % Internal Examiner 1
-  \member[title=Associate Professor,
-          department={Faculty of Engineering},
-          role={Internal Examiner}]
-         {Name of Examiner 1, PhD}
-  % Internal Examiner 2
-  \member[title={},
-          department={Faculty of Engineering},
-          role={Internal Examiner}]
-         {Name of Examiner 2, PhD}
-  % External Examiner
-  \member[title=Associate Professor,
-          department={School of Chemical Engineering},
-          institute={Imperial College}, 
-          role={External Examiner}]
-         {Name of External, PhD}
-\end{examcommapproval}
-\end{minted}
-
 \marginnote{Default values for \mintinline{LaTeX}{\member} keys, if you do not explicitly define them:
 \begin{description}[noitemsep]
 \item[\ttfamily title] (empty)
@@ -323,22 +294,33 @@ To produce the Examination Committee approval form, you'll need to specify the c
 \end{description}
 }
 
-The Supervisory Commitee approval is created in a similar manner, using the \mintinline{LaTeX}{supervisoryapproval} environment:
+
+\begin{minted}{LaTeX}
+\begin{examcommapproval}
+  % Exam Committee Chairman
+  \member[title=Professor,                        department={Faculty of Mathematics},                                  role={Chairman}]
+  {Name of Chairperson, PhD}
+  % Internal Examiner 1
+  \member[title=Associate Professor,                         department={Faculty of Engineering},                  role={Internal Examiner}]{Name of Examiner 1, PhD}
+  % Internal Examiner 2
+  \member[title={},                        department={Faculty of Engineering},              role={Internal Examiner}]{Name of Examiner 2, PhD}
+  % External Examiner
+  \member[title=Associate Professor,                  department={School of Chemical Engineering},                institute={Imperial College},               role={External Examiner}]{Name of External, PhD}
+\end{examcommapproval}
+\end{minted}
+
+The Supervisory Commitee approval is created in a similar manner, using the \mintinline{LaTeX}{supervisoryapproval} environment. \marginnote{The wording for Supervisory Commitee approval will be generated differently for postgraduate and \texttt{undergrad} theses.}
 
 \begin{minted}{LaTeX}
 \begin{supervisoryapproval}
   % Supervisory Committee Chairman
-  \member[title={Associate Professor},
-          role={Chairman}, 
-          department={Faculty of Engineering}]
-         {Name of Chairperson, PhD}
+  \member[title={Associate Professor},             role={Chairman},                           department={Faculty of Engineering}]
+    {Name of Chairperson, PhD}
   % Supervisory Committee Member 1
-  \member[title={Ir.},
-          department={Faculty of Engineering}]
-         {Name of Member 1, PhD}
+  \member[title={Ir.}, department={Faculty of Engineering}]{Name of Member 1, PhD}
   % Supervisory Committee Member 2
   \member[department={Faculty of Engineering}]
-         {Name of Member 2, PhD}
+    {Name of Member 2, PhD}
 \end{supervisoryapproval}
 
 \end{minted}
@@ -399,7 +381,7 @@ Researchers first attempted to...
 In \directory{sample-thesis.tex}, these chapter files are included with the following lines:
 
 \begin{minted}{LaTeX}
-\mainmatter               % signal start of main chapters
+\mainmatter         % signal start of main chapters
 \input{sample-chap-intro}
 \input{sample-chap-litreview}
 \input{...}
@@ -411,15 +393,19 @@ Graphics files, figures, tables, itemize and enumerated lists, etc are created u
 
 \subsection{Citatons and Bibliography}
 
-Citations and bibliography are done using Bib\TeX{}, adopting the \smallcaps{APA} style. Both \texttt{natbib} and \texttt{apacite} commands can be used -- in most cases you'll just need to remember the following:
+Citations and bibliography are done using Bib\TeX{}, adopting the \smallcaps{APA} style. Both \texttt{natbib} and \texttt{apacite} commands can be used -- in most cases you'll just need the following:
 
+\begin{fullwidth}
 \begin{tabular}{l @{\enspace$\longrightarrow$\enspace} l}
 \mintinline{LaTeX}{\cite{John:2004}} & John (2004)\\
 \mintinline{LaTeX}{\citep{John:2004}} &(John, 2004)\\
 \mintinline{LaTeX}{\citet{John:2004}} & John (2004)\\
-\mintinline{LaTeX}{\citep[p.5]} & (John, 2004, p.5)\\
-\mintinline{LaTeX}{\citep[see also][p.5]{John:2004}} & (see also John, 2004, p.5)
+\mintinline{LaTeX}{\citep[p.5]{John:2004}} & (John, 2004, p.5)\\
+\mintinline{LaTeX}{\citep[see also][p.5]{John:2004}} & (see also John, 2004, p.5)\\
+\mintinline{LaTeX}{\citeauthor{John:2004}} & John\\
+\mintinline{LaTeX}{\citeyear{John:2004}} & 2004\\
 \end{tabular}
+\end{fullwidth}
 
 \subsection{Calling Abbreviations}
 \label{sec:abbrevs:gls}

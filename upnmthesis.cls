@@ -295,6 +295,8 @@
 \AtBeginEnvironment{quote}{\vspace*{-0.5\onelineskip}\SingleSpacing}
 
 \maxsecnumdepth{subsection}
+\setcounter{lofdepth}{2}
+\setcounter{lotdepth}{2}
 
 
 %%%%%%%%%%
@@ -341,9 +343,17 @@
 \renewcommand*{\cftfigureformatpnum}[1]{%
    \cftfigureformatpnumhook{#1}%
    \hbox to \@pnumwidth{\hfil{\cftfigurepagefont #1}\hfil}}
+\renewcommand*{\cftsubfigureformatpnum}[1]{%
+   \cftfigureformatpnumhook{#1}%
+   \hbox to \@pnumwidth{\hfil{\cftfigurepagefont #1}\hfil}}
+\setlength{\cftsubfigurenumwidth}{2em}
 \renewcommand*{\cfttableformatpnum}[1]{%
    \cfttableformatpnumhook{#1}%
    \hbox to \@pnumwidth{\hfil{\cfttablepagefont #1}\hfil}}
+\renewcommand*{\cftsubtableformatpnum}[1]{%
+   \cfttableformatpnumhook{#1}%
+   \hbox to \@pnumwidth{\hfil{\cfttablepagefont #1}\hfil}}
+\setlength{\cftsubtablenumwidth}{2em}
 
   \setlength{\cftbeforechapterskip}{0pt}
 
