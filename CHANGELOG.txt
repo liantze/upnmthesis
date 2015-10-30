@@ -1,0 +1,4 @@
+BRIEF CHANGELOG
+===============
+v1.0 October 20 2015
+   - First released version.

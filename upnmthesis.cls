@@ -87,6 +87,7 @@
 \AtEndPreamble{%
   \usepackage[breaklinks,pdfborder={0 0 0},pdfpagelabels,plainpages=false]{hyperref}%
   \usepackage[noredefwarn,toc,nonumberlist,shortcuts,translate=false,style=long,acronym]{glossaries}
+  \renewcommand{\glossarypreamble}{\vspace*{3\onelineskip}}
   \makeglossaries
 }
 
@@ -116,7 +117,7 @@
 \DisemulatePackage{setspace}
 \RequirePackage{setspace}
 \setstretch{2.0}
-\abnormalparskip{2\onelineskip}
+\abnormalparskip{6\onelineskip}
 \setlength{\parindent}{0em}
 
 %%%%%%%%%%%%
@@ -132,12 +133,13 @@
 % Chapter headings
 %%%%%%%%%%%%
 \renewcommand\chapterheadstart{\normalsize\vspace*{\beforechapskip}}
-\setlength\beforechapskip{2\onelineskip}
-\setlength\midchapskip{2\onelineskip}
+\setlength\beforechapskip{3\onelineskip}
+\setlength\midchapskip{3\onelineskip}
 %\setlength\afterchapskip{0.5\onelineskip}
 %\setlength\beforechapskip{3em}
 %\setlength\midchapskip{3em}
-\setlength\afterchapskip{1em}
+%\setlength\afterchapskip{1em}
+\setlength\afterchapskip{0pt}
 \renewcommand*\chapnamefont{\normalsize\bfseries}
 \renewcommand*\chapnumfont{\normalsize\bfseries\centering}
 \renewcommand*\chaptitlefont{\SingleSpacing\normalsize\bfseries\centering}
@@ -149,7 +151,7 @@
 % Sectional headings
 %%%%%%%%%%%%
 \setsecheadstyle{\SingleSpacing\normalsize\bfseries}
-\setbeforesecskip{2\onelineskip}
+\setbeforesecskip{3\onelineskip}
 \setaftersecskip{0.1pt}
 %\setsubsecindent{2.5em}
 \setsubsecheadstyle{\SingleSpacing\normalsize\bfseries}
@@ -173,11 +175,11 @@
 \setlength\absrightindent{0pt}
 \newcommand{\abstractfromfile}[1]{
   \renewcommand*\abstractname{\texorpdfstring{ABSTRACT}{Abstract}}
-  \clearpage\mbox{}\begin{abstract}\input{#1}\end{abstract}
+  \clearpage\mbox{}\begin{abstract}\vspace*{-\baselineskip}\input{#1}\end{abstract}
 }
 \newcommand{\msabstractfromfile}[1]{%
   \renewcommand*\abstractname{\texorpdfstring{ABSTRAK}{Abstrak}}
-  \clearpage\mbox{}\begin{abstract}\otherlanguage{bahasam}\input{#1}\end{abstract}
+  \clearpage\mbox{}\begin{abstract}\otherlanguage{bahasam}\vspace*{-\baselineskip}\input{#1}\end{abstract}
 }
 \renewcommand\abstractnamefont{\normalsize\bfseries}
 
@@ -270,6 +272,7 @@
 \AtBeginEnvironment{appendices}{%
   \SingleSpacing%
   \abnormalparskip{\onelineskip}%
+  \setlength\afterchapskip{3\onelineskip}%
   \renewcommand{\chaptername}{Appendix}
   \iftoggle{appheadintoc}{%
     \phantomsection\addappheadtotoc%
@@ -288,11 +291,19 @@
 \firmlist
 
 %%%%%%%%%%
-% Quotations
+% Quotations and equatons
 %%%%%%%%%%
-\AtBeginEnvironment{quotation}{\vspace*{-0.5\onelineskip}\SingleSpacing}
-\AtEndEnvironment{quotation}{\vspace*{-\onelineskip}}
-\AtBeginEnvironment{quote}{\vspace*{-0.5\onelineskip}\SingleSpacing}
+%\AtBeginEnvironment{quotation}{\vspace*{-0.5\onelineskip}\SingleSpacing}
+%\AtEndEnvironment{quotation}{\vspace*{-\onelineskip}}
+%\AtBeginEnvironment{quote}{\vspace*{-0.5\onelineskip}\SingleSpacing}
+%\AtBeginEnvironment{equation}{\vspace*{-\onelineskip}}
+%\AtBeginEnvironment{equation*}{\vspace*{-\onelineskip}}
+\AtBeginEnvironment{quotation}{\vspace*{-.5\parskip}\SingleSpacing}
+\AtEndEnvironment{quotation}{\vspace*{-.5\parskip}}
+\AtBeginEnvironment{quote}{\vspace*{-.5\parskip}\SingleSpacing}
+\AtEndEnvironment{quote}{\vspace*{-.5\parskip}}
+\AtBeginEnvironment{equation}{\vspace*{-\parskip}}
+\AtBeginEnvironment{equation*}{\vspace*{-\parskip}}
 
 \maxsecnumdepth{subsection}
 \setcounter{lofdepth}{2}
@@ -514,7 +525,8 @@
 \else
   \newenvironment{examcommapproval}{%
     \clearpage%
-      \nottoggle{approvaladded}{
+    \abnormalparskip{\onelineskip}%
+    \nottoggle{approvaladded}{
       \phantomsection%
       \addcontentsline{toc}{chapter}{\texorpdfstring{APPROVAL}{Approval}}%
       \global\toggletrue{approvaladded}%
@@ -531,6 +543,7 @@
 
 \newenvironment{supervisoryapproval}{%
   \clearpage%
+  \abnormalparskip{\onelineskip}%
   \nottoggle{approvaladded}{
     \phantomsection%
     \addcontentsline{toc}{chapter}{\texorpdfstring{APPROVAL}{Approval}}%
@@ -551,12 +564,12 @@
 
 %%%%%%%%%%%%%%%%%%%
 % Declaration form.
-\newcommand{\declarationpage}{%
+\newcommand{\declarationpage}{{%
   \clearpage%
   \phantomsection%
   \addcontentsline{toc}{chapter}{\texorpdfstring{DECLARATION}{Declaration}}%
-  \SingleSpacing%
-  { \centering
+  \SingleSpacing\abnormalparskip{\onelineskip}%\enlargethispage{\baselineskip}%
+  { \centering%
     \rule{\textwidth}{1.5pt}\par
     \textbf{UNIVERSITY PERTAHANAN NASIONAL MALAYSIA}\par
     DECLARATION OF THESIS\par
@@ -577,7 +590,7 @@
     CONFIDENTIAL & (Contains confidential information under the Official Secret Act 1972)*\\
     RESTRICTED & (Contains restricted information as specified by the organisation where research was done)*\\
     OPEN ACCESS & I agree that my thesis to be published as online open access (full text)
-    \end{tabularx}
+    \end{tabularx}%
   }
 
   I acknowledge that Universiti Pertahanan Nasional Malaysia reserves the right as follows.
@@ -599,9 +612,9 @@
   Date: \hrulefill & Date: \hrulefill
   \end{tabularx}
 
-  \hangfrom{Note: *\hspace{1em}}{If the thesis is CONFIDENTIAL OR RESTRICTED, please attach the letter from the organisation stating the period and reasons for confidentiallity and restriction.}\par
-  \rule{\textwidth}{1.5pt}
-}
+  \hangfrom{Note: *\hspace{1em}}{If the thesis is CONFIDENTIAL OR RESTRICTED, please attach the letter from the organisation stating the period and reasons for confidentiallity and restriction.}\par\vspace*{-\baselineskip}
+  \rule{\textwidth}{1.5pt}%
+}}
 
 %%%%%%%%%%%
 % Biodata of Student
