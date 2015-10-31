@@ -64,8 +64,8 @@
 \usepackage{enumitem}
 \setlist[itemize,enumerate]{noitemsep}
 
-\usepackage{minted}
-\setminted[LaTeX]{breaklines,breaksymbolleft={\phantom{\ttfamily aaaa}}}
+\usepackage[cachedir={_minted}]{minted}
+\setminted[latex]{breaklines,breaksymbolleft={\phantom{\ttfamily aaaa}}}
 \setmintedinline{bgcolor={Beige!30!white}}
 
 \usepackage{mdframed}
@@ -178,7 +178,7 @@ We'll now look at how you can modify the template \LaTeX{} files to suit your ow
 
 \section{Document Class Options}
 
-To `activate' the class, make sure your main document file (e.g.~\texttt{sample-thesis.tex}) starts off with \mintinline{LaTeX}{\documentclass{upnmthesis}}. This will set up the page margins, paragraph spacing, indents, page numbers, font face and size, content list and section headings, citation and bibliography format, amongst other things.
+To `activate' the class, make sure your main document file (e.g.~\texttt{sample-thesis.tex}) starts off with \mintinline{latex}{\documentclass{upnmthesis}}. This will set up the page margins, paragraph spacing, indents, page numbers, font face and size, content list and section headings, citation and bibliography format, amongst other things.
 
 
 There are three options \marginnote{All three options are off as default.} that you can pass to the document class declaration:
@@ -186,7 +186,7 @@ There are three options \marginnote{All three options are off as default.} that 
 \begin{description}
 \item[\ttfamily undergrad]   
 If you're writing an undergraduate thesis. \marginnote{Remember to specify
-             your \mintinline{LaTeX}{\faculty} and \mintinline{LaTeX}{\bachprogramme} if using this option.} There will then
+             your \mintinline{latex}{\faculty} and \mintinline{latex}{\bachprogramme} if using this option.} There will then
              be no exam committee approval, even if you have specified
              \texttt{examcommapproval} -- see section~\ref{sec:approval}. and the wordings of the supervisory
              committee approval will be different.
@@ -204,15 +204,15 @@ If you're writing an undergraduate thesis. \marginnote{Remember to specify
 \section{List of Abbreviations}
 \label{sec:list:abbrevs}
 
-To facilitate automatic sorting and expansion of abbreviations, \texttt{upnmthesis} uses the \texttt{glossaries} package. Preferably, the list of abbreviations and symbols are defined in a separate \directory{myacronyms.tex}, and included in the thesis just after \mintinline{LaTeX}{\begin{document}}:
+To facilitate automatic sorting and expansion of abbreviations, \texttt{upnmthesis} uses the \texttt{glossaries} package. Preferably, the list of abbreviations and symbols are defined in a separate \directory{myacronyms.tex}, and included in the thesis just after \mintinline{latex}{\begin{document}}:
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \input{myacronyms}
 \end{minted}
 
-\directory{myacronyms.tex} can contain abbreviation/acronym definitions that take the form of\\\mintinline{LaTeX}{\newacronym{label}{abbreviated form or symbol}{full form}}:
+\directory{myacronyms.tex} can contain abbreviation/acronym definitions that take the form of\\\mintinline{latex}{\newacronym{label}{abbreviated form or symbol}{full form}}:
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \newacronym{LI}{LI}{lexical item}
 %% need to specify plural forms explicitly, otherwise
 %% will come out as "part of speechs"
@@ -221,17 +221,17 @@ To facilitate automatic sorting and expansion of abbreviations, \texttt{upnmthes
 \newacronym{theta}{$\theta$}{temperature degree}
 \end{minted}
 
-Only abbreviations that are actually called in the main text \marginnote{section \ref{sec:texworks:makeglossaries}} via \mintinline{LaTeX}{\gls} and related commands,will be printed \marginnote{\mintinline{LaTeX}{\printacronyms}, section \ref{sec:content:lists}} in the List of Abbreviations.
+Only abbreviations that are actually called in the main text \marginnote{section \ref{sec:texworks:makeglossaries}} via \mintinline{latex}{\gls} and related commands,will be printed \marginnote{\mintinline{latex}{\printacronyms}, section \ref{sec:content:lists}} in the List of Abbreviations.
 
 \section{Front Matter}
 
-\mintinline{LaTeX}{\frontmatter} marks the start of the thesis front matter -- i.e.~everything before your first chapter. This includes the cover page, title page, dedication (optional), acknowledgements, English and Malay abstracts, approval forms, declaration form, and content lists.
+\mintinline{latex}{\frontmatter} marks the start of the thesis front matter -- i.e.~everything before your first chapter. This includes the cover page, title page, dedication (optional), acknowledgements, English and Malay abstracts, approval forms, declaration form, and content lists.
 
 \subsection{Information about Your Thesis}
 
-Modify the following lines in the template to suit your own thesis. These information will be used to generate the cover and title pages, as well as various forms in the thesis. Don't forget to specify your \mintinline{LaTeX}{\faculty} and \mintinline{LaTeX}{\bachprogramme} if you have specified the \texttt{undergrad} document option.
+Modify the following lines in the template to suit your own thesis. These information will be used to generate the cover and title pages, as well as various forms in the thesis. Don't forget to specify your \mintinline{latex}{\faculty} and \mintinline{latex}{\bachprogramme} if you have specified the \texttt{undergrad} document option.
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \author{Your Name}
 \title{Your Thesis Title}
 \degree{Your Degree (e.g. Doctor of Philosophy)}
@@ -249,18 +249,18 @@ Modify the following lines in the template to suit your own thesis. These inform
 
 \subsection{Cover and Title Pages}
 
-\mintinline{LaTeX}{\makecoverandtitlepage} generates the cover page, \marginnote{The `cover page' is the hard cover, while the title page is printed on a plain A4 paper.} a blank page, and then the title page, using the information you've provided.
+\mintinline{latex}{\makecoverandtitlepage} generates the cover page, \marginnote{The `cover page' is the hard cover, while the title page is printed on a plain A4 paper.} a blank page, and then the title page, using the information you've provided.
 
 \subsection{Dedication \& Acknowledgements}
 
 You can create an optional dedication page with \marginnote{Dedications are usually short.}
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \dedication{To my parents.}
 \end{minted}
 
 On the other hand, the acknowledgements section is likely to be longer -- so I've put it in \directory{acknowledgements.tex} as a sample:
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \begin{acknowledgements}
 Thanks guys. I owe you many.
 \end{acknowledgements}
@@ -271,7 +271,7 @@ Thanks guys. I owe you many.
 Write your abstracts in separate files \marginnote{\directory{sample-abstract.tex} for the English abstract and \directory{sample-msabstract.tex} for the Malay abstract in this example}. These files do not need to contain any headings -- only the abstract text is needed.
 
 Include them in \directory{sample-thesis.tex} like this:
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \abstractfromfile{sample-abstract}
 \msabstractfromfile{sample-msabstract}
 \end{minted}
@@ -283,9 +283,9 @@ Include them in \directory{sample-thesis.tex} like this:
 
 If you are writing a postgraduate thesis (default mode), you will need two approval forms: one from the \emph{Examination Committee}, and one from the \emph{Supervisory Committee}. Examination Committee approval is \marginnote{i.e.~if you used \texttt{undergrad} class option.} not required for undergraduate theses.
 
-To produce the Examination Committee approval form, you'll need to specify the committee \mintinline{LaTeX}{\member}s (Chairman, the two Internal Examiners and the External Examiner) in the \mintinline{LaTeX}{examcommapproval} environment: \marginnote{The \texttt{examcommapproval} environment will be ignored if you have specified the \texttt{undergrad} class option.}
+To produce the Examination Committee approval form, you'll need to specify the committee \mintinline{latex}{\member}s (Chairman, the two Internal Examiners and the External Examiner) in the \mintinline{latex}{examcommapproval} environment: \marginnote{The \texttt{examcommapproval} environment will be ignored if you have specified the \texttt{undergrad} class option.}
 
-\marginnote{Default values for \mintinline{LaTeX}{\member} keys, if you do not explicitly define them:
+\marginnote{Default values for \mintinline{latex}{\member} keys, if you do not explicitly define them:
 \begin{description}[noitemsep]
 \item[\ttfamily title] (empty)
 \item[\ttfamily department] (empty)
@@ -295,7 +295,7 @@ To produce the Examination Committee approval form, you'll need to specify the c
 }
 
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \begin{examcommapproval}
   % Exam Committee Chairman
   \member[title=Professor,                        department={Faculty of Mathematics},                                  role={Chairman}]
@@ -309,9 +309,9 @@ To produce the Examination Committee approval form, you'll need to specify the c
 \end{examcommapproval}
 \end{minted}
 
-The Supervisory Commitee approval is created in a similar manner, using the \mintinline{LaTeX}{supervisoryapproval} environment. \marginnote{The wording for Supervisory Commitee approval will be generated differently for postgraduate and \texttt{undergrad} theses.}
+The Supervisory Commitee approval is created in a similar manner, using the \mintinline{latex}{supervisoryapproval} environment. \marginnote{The wording for Supervisory Commitee approval will be generated differently for postgraduate and \texttt{undergrad} theses.}
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \begin{supervisoryapproval}
   % Supervisory Committee Chairman
   \member[title={Associate Professor},             role={Chairman},                           department={Faculty of Engineering}]
@@ -325,7 +325,7 @@ The Supervisory Commitee approval is created in a similar manner, using the \min
 
 \end{minted}
 
-\mintinline{LaTeX}{\declarationpage
+\mintinline{latex}{\declarationpage
 } generates the thesis declaration page. Remember to get all these pages signed before submission.
 
 \subsection{Content Lists}
@@ -333,7 +333,7 @@ The Supervisory Commitee approval is created in a similar manner, using the \min
 
 The table of contents, list of tables, list of figure, list of appendices  and list of abbreviations are generated by the following lines.
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 {\clearpage\SingleSpacing
 \tableofcontents*\clearpage
 \listoftables\clearpage
@@ -345,14 +345,14 @@ The table of contents, list of tables, list of figure, list of appendices  and l
 }
 \end{minted}
 
-Note that you should leave \mintinline{LaTeX}{\listofappendices} commented if you have two or less appendices. \marginnote{A single item `Appendices' will then be added to the table of contents.} Conversely, \marginnote{If \mintinline{LaTeX}{\listofappendices} is issued, the item `Appendices' will not appear in the table of contents.} if you have three appendices or more, you should uncomment it, so that a separate list of appendices can be generated.
+Note that you should leave \mintinline{latex}{\listofappendices} commented if you have two or less appendices. \marginnote{A single item `Appendices' will then be added to the table of contents.} Conversely, \marginnote{If \mintinline{latex}{\listofappendices} is issued, the item `Appendices' will not appear in the table of contents.} if you have three appendices or more, you should uncomment it, so that a separate list of appendices can be generated.
 
 
 \section{Main Chapters}
 
 I highly recommend that each chapter be written in a separate file. For example, \directory{sample-chap-intro.tex} may have the contents
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 %!TEX ROOT=sample-thesis.tex
 \chapter{Introduction}
 This is the introduction chapter.
@@ -368,7 +368,7 @@ This means if you hit \keys{Ctrl+T} when you  are editing \directory{chap-xxx.te
 
 
 And \directory{sample-chap-litreview.tex}:
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 %!TEX ROOT=sample-thesis.tex
 \chapter{Literature Review}
 We review the state of the art in...
@@ -380,7 +380,7 @@ Researchers first attempted to...
 
 In \directory{sample-thesis.tex}, these chapter files are included with the following lines:
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \mainmatter         % signal start of main chapters
 \input{sample-chap-intro}
 \input{sample-chap-litreview}
@@ -397,45 +397,45 @@ Citations and bibliography are done using Bib\TeX{}, adopting the \smallcaps{APA
 
 \begin{fullwidth}
 \begin{tabular}{l @{\enspace$\longrightarrow$\enspace} l}
-\mintinline{LaTeX}{\cite{John:2004}} & John (2004)\\
-\mintinline{LaTeX}{\citep{John:2004}} &(John, 2004)\\
-\mintinline{LaTeX}{\citet{John:2004}} & John (2004)\\
-\mintinline{LaTeX}{\citep[p.5]{John:2004}} & (John, 2004, p.5)\\
-\mintinline{LaTeX}{\citep[see also][p.5]{John:2004}} & (see also John, 2004, p.5)\\
-\mintinline{LaTeX}{\citeauthor{John:2004}} & John\\
-\mintinline{LaTeX}{\citeyear{John:2004}} & 2004\\
+\mintinline{latex}{\cite{John:2004}} & John (2004)\\
+\mintinline{latex}{\citep{John:2004}} &(John, 2004)\\
+\mintinline{latex}{\citet{John:2004}} & John (2004)\\
+\mintinline{latex}{\citep[p.5]{John:2004}} & (John, 2004, p.5)\\
+\mintinline{latex}{\citep[see also][p.5]{John:2004}} & (see also John, 2004, p.5)\\
+\mintinline{latex}{\citeauthor{John:2004}} & John\\
+\mintinline{latex}{\citeyear{John:2004}} & 2004\\
 \end{tabular}
 \end{fullwidth}
 
 \subsection{Calling Abbreviations}
 \label{sec:abbrevs:gls}
 
-Use \mintinline{LaTeX}{\gls} and related commands to call abbreviations that you previously defined \marginnote{section \ref{sec:list:abbrevs}} in \directory{myacronyms.tex}. On first mention, the full form will be displayed, and on subsequent mentions, the short form will be used. For example:
+Use \mintinline{latex}{\gls} and related commands to call abbreviations that you previously defined \marginnote{section \ref{sec:list:abbrevs}} in \directory{myacronyms.tex}. On first mention, the full form will be displayed, and on subsequent mentions, the short form will be used. For example:
 
 \begin{tabular}{l @{\enspace$\longrightarrow$\enspace} l}
-\mintinline{LaTeX}{\gls{LI}} (first use) & lexical item (LI) \\
-\mintinline{LaTeX}{\Gls{LI}} (first use) & Lexical item (LI) \\
-\mintinline{LaTeX}{\glspl{LI}} (first use) & lexical items (LIs) \\
-\mintinline{LaTeX}{\gls{LI}} (subsequent uses) & LI \\
-\mintinline{LaTeX}{\glspl{LI}} (subsequent uses) & LIs \\
-\mintinline{LaTeX}{\glspl{POS}} (first use) & parts-of-speech (POS)
+\mintinline{latex}{\gls{LI}} (first use) & lexical item (LI) \\
+\mintinline{latex}{\Gls{LI}} (first use) & Lexical item (LI) \\
+\mintinline{latex}{\glspl{LI}} (first use) & lexical items (LIs) \\
+\mintinline{latex}{\gls{LI}} (subsequent uses) & LI \\
+\mintinline{latex}{\glspl{LI}} (subsequent uses) & LIs \\
+\mintinline{latex}{\glspl{POS}} (first use) & parts-of-speech (POS)
 \end{tabular} \marginnote{A custom plural form was specified for POS, so we get `parts-of-speech' instead of `part-of-speech'}
 
-Note that only abbreviations that have actually been used via \mintinline{LaTeX}{\gls} etc will appear in the List of Abbreviations.
+Note that only abbreviations that have actually been used via \mintinline{latex}{\gls} etc will appear in the List of Abbreviations.
 
 \section{Back Matter}
 
-The back matter starts when the final main chapter has ended. It consists of the bibliography, appendices, publication list and  biodata. \emph{However note that the \mintinline{LaTeX}{\backmatter} command \emph{should not} be used.}
+The back matter starts when the final main chapter has ended. It consists of the bibliography, appendices, publication list and  biodata. \emph{However note that the \mintinline{latex}{\backmatter} command \emph{should not} be used.}
 
 \subsection{Bibliography}
 
-The bibliography file is a standard Bib\TeX{} \texttt{.bib} file -- a standard \mintinline{LaTeX}{\bibliography{sample}} is sufficient.
+The bibliography file is a standard Bib\TeX{} \texttt{.bib} file -- a standard \mintinline{latex}{\bibliography{sample}} is sufficient.
 
 \subsection{Appendices}
 
 Similar to the main chapters, it is recommended to put each appendix in its own file.
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \begin{appendices}
 \input{sample-appen-manual}
 \input{sample-appen-try}
@@ -443,9 +443,9 @@ Similar to the main chapters, it is recommended to put each appendix in its own 
 \end{minted}
 
 \subsection{Biodata}
-Write your personal biodata in the \mintinline{LaTeX}{biodata} environment. This can go into a separate \directory{biodata.tex}, which is later \mintinline{LaTeX}{\input}-ed.
+Write your personal biodata in the \mintinline{latex}{biodata} environment. This can go into a separate \directory{biodata.tex}, which is later \mintinline{latex}{\input}-ed.
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \begin{biodata}
 Put your personal biodata as required here.
 \end{biodata}
@@ -454,23 +454,23 @@ Put your personal biodata as required here.
 \subsection{Publication List}
 
 First, make sure that you enter details about your own publications in your Bib\TeX{} file, \directory{myrefs.bib} file.
-\marginnote{You can list your publications in a different \texttt{.bib} file -- just remember to pass in the correct file name to \mintinline{LaTeX}{\bibliographyown}.}
-Then in \directory{sample-thesis.tex}, list the keys of your publications in \mintinline{LaTeX}{\nociteown}, and display the publication list using \mintinline{LaTeX}{\bibliographyown}:
+\marginnote{You can list your publications in a different \texttt{.bib} file -- just remember to pass in the correct file name to \mintinline{latex}{\bibliographyown}.}
+Then in \directory{sample-thesis.tex}, list the keys of your publications in \mintinline{latex}{\nociteown}, and display the publication list using \mintinline{latex}{\bibliographyown}:
 
 \begin{fullwidth}
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 \nociteown{Lim:2009,Bond:etal:WordNetBahasa:2014,Lim:etal:2014,Lim:etal:acl:lookup}
 \bibliographyown{myrefs}
 \end{minted}
 \end{fullwidth}
 
-The publication list sorts entries according to the \smallcaps{APA} requirements by default, i.e.~based on the first authors' last names. This may not be what you want, e.g.~you may want to sort your publications chronologically. In this case, we can force \smallcaps{APA} to sort by a custom key, using the \mintinline{LaTeX}{\APACSortNoop} command. For example, the following will sort by chronological order of the publication date:
+The publication list sorts entries according to the \smallcaps{APA} requirements by default, i.e.~based on the first authors' last names. This may not be what you want, e.g.~you may want to sort your publications chronologically. In this case, we can force \smallcaps{APA} to sort by a custom key, using the \mintinline{latex}{\APACSortNoop} command. For example, the following will sort by chronological order of the publication date:
 
-\marginnote{Note that the \mintinline{LaTeX}{\APACSortNoop} command should be placed just before the \emph{last name} of the first author.
+\marginnote{Note that the \mintinline{latex}{\APACSortNoop} command should be placed just before the \emph{last name} of the first author.
 
 You may define the custom value differently if you want to sort by reverse chronological order.}
 
-\begin{minted}{LaTeX}
+\begin{minted}{latex}
 @ARTICLE{Bond:etal:WordNetBahasa:2014,
   author={{\APACSortNoop{2014}}Bond, Francis and Lim, Lian Tze and Tang, Enya Kong and Riza, Hammam},
   year={2014},
