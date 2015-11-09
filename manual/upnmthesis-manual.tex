@@ -240,7 +240,6 @@ Modify the following lines in the template to suit your own thesis. These inform
 %% and specify the following two lines
 % \bachprogramme{Chemical Engineering}
 % \faculty{Faculty of Engineering}
-
 \submissionyear{2011}
 \submissionmonth{October}
 \vivadate{25 August 2011}
@@ -309,7 +308,7 @@ To produce the Examination Committee approval form, you'll need to specify the c
 \end{examcommapproval}
 \end{minted}
 
-The Supervisory Commitee approval is created in a similar manner, using the \mintinline{latex}{supervisoryapproval} environment. \marginnote{The wording for Supervisory Commitee approval will be generated differently for postgraduate and \texttt{undergrad} theses.}
+The Supervisory Commitee approval \marginnote{The wording for Supervisory Commitee approval will be generated differently for postgraduate and \texttt{undergrad} theses.} is created in a similar manner, using the \mintinline{latex}{supervisoryapproval} environment.
 
 \begin{minted}{latex}
 \begin{supervisoryapproval}
@@ -350,7 +349,11 @@ Note that you should leave \mintinline{latex}{\listofappendices} commented if yo
 
 \section{Main Chapters}
 
-I highly recommend that each chapter be written in a separate file. For example, \directory{sample-chap-intro.tex} may have the contents
+I highly recommend that each chapter be written in a separate file. For example, \directory{sample-chap-intro.tex} may have the contents  \marginnote{The \mintinline{bash}{!TEX ROOT} directive
+indicates to TeXworks (and also TeXshop on the Mac) that \directory{sample-chap-xxx.tex} are `sub-files' of \directory{thesis.tex}.
+
+This means if you hit \keys{Ctrl+T} when you  are editing \directory{chap-xxx.tex}, \directory{sample-thesis.tex} will get compiled instead.}
+
 
 \begin{minted}{latex}
 %!TEX ROOT=sample-thesis.tex
@@ -360,12 +363,6 @@ This is the introduction chapter.
 \section{Problem Background}
 We study the...
 \end{minted}
-
- \marginnote{The \mintinline{bash}{!TEX ROOT} directive
-indicates to TeXworks (and also TeXshop on the Mac) that \directory{sample-chap-xxx.tex} are `sub-files' of \directory{thesis.tex}. 
-
-This means if you hit \keys{Ctrl+T} when you  are editing \directory{chap-xxx.tex}, \directory{sample-thesis.tex} will get compiled instead.}
-
 
 And \directory{sample-chap-litreview.tex}:
 \begin{minted}{latex}
@@ -387,9 +384,31 @@ In \directory{sample-thesis.tex}, these chapter files are included with the foll
 \input{...}
 \end{minted}
 
+
 \subsection{Typesetting the Text}
 
-Graphics files, figures, tables, itemize and enumerated lists, etc are created using the standard \LaTeX{} commands. See \directory{sample-chap-intro.tex} for some examples, including how to create subfigures (and by extension, subtables).
+Sections, subsections, graphics files, figures, tables, itemize and enumerated lists, etc are created using the standard \LaTeX{} commands. See \directory{sample-chap-intro.tex} for some examples, including how to create subfigures (and by extension, subtables).
+
+
+\subsection{About Subsections}
+
+Subsections need to be indented, so remember to surround your subsections with \mintinline{latex}{\begin{subsecs}...\end{subsecs}} like this:
+
+\begin{minted}[escapeinside=||]{latex}
+\section{Discussion}
+We will highlight...
+
+\begin{|\bfseries\color{red}subsecs|}
+\subsection{First Issue}
+...
+\subsection{Second Issue}
+...
+\end{|\bfseries\color{red}subsecs|}
+
+\section{Next section}
+...
+\end{minted}
+
 
 \subsection{Citatons and Bibliography}
 
