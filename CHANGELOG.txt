@@ -1,4 +1,8 @@
 BRIEF CHANGELOG
 ===============
+v1.0.1 April 6 2016
+   - Fixed typo and spacing error on cover.
+   - Added \studyfield for both postgrad and bachelor.
+
 v1.0 October 20 2015
    - First released version.
