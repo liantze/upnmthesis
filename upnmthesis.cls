@@ -5,7 +5,7 @@
 %% http://liantze.penguinattack.org/latextypesetting.html#upnmthesis
 %%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{upnmthesis}[2015/10/20 LaTeX2e class for Universiti Pertahanan Nasional Malaysia (UPNM) v1.0.  Copyright (c) 2015 Lian Tze LIM (liantze@gmail.com)]
+\ProvidesClass{upnmthesis}[2016/04/06 LaTeX2e class for Universiti Pertahanan Nasional Malaysia (UPNM) v1.0.1.  Copyright (c) 2015--2016 Lian Tze LIM (liantze@gmail.com)]
 
 \LoadClass[12pt,a4paper,oneside]{memoir}
 \RequirePackage{etoolbox}
@@ -44,6 +44,7 @@
 \RequirePackage{amsmath,amssymb,amsfonts,bm}
 \renewcommand\ttdefault{lmvtt}
 \if@microtype\RequirePackage{microtype}\fi
+\RequirePackage{ragged2e}
 
 %%%%%%%%%%%
 % Information about the thesis
@@ -53,14 +54,14 @@
 \def\@mtsubmissionyear{\textbf{!INSERT YEAR!}}
 \def\@mtsubmissionmonth{\textbf{!INSERT MONTH!}}
 \def\@mtdegree{\textbf{!INSERT DEGREE!}}
-\def\@mtbachprogramme{\textbf{!INSERT PROGRAMME!}}
+\def\@mtstudyfield{\textbf{!INSERT studyfield!}}
 \def\@mtfaculty{\textbf{!INSERT FACULTY!}}
 \def\@mtvivadate{\textbf{!INSERT VIVA DATE!}}
 
 \newcommand{\submissionyear}[1]{\def\@mtsubmissionyear{#1}}
 \newcommand{\submissionmonth}[1]{\def\@mtsubmissionmonth{#1}}
 \newcommand{\degree}[1]{\def\@mtdegree{#1}}
-\newcommand{\bachprogramme}[1]{\def\@mtbachprogramme{#1}}
+\newcommand{\studyfield}[1]{\def\@mtstudyfield{#1}}
 \newcommand{\faculty}[1]{\def\@mtfaculty{#1}}
 \newcommand{\vivadate}[1]{\def\@mtvivadate{#1}}
 
@@ -439,7 +440,7 @@
   \vfill%
   \MakeUppercase{\theauthor}\par%
   \vfill%
-  \MakeUppercase{\@mtdegree}\par\vspace{3\onelineskip}%
+  \MakeUppercase{\@mtdegree}\par%\vspace{3\onelineskip}%
   UNIVERSITY PERTAHANAN NASIONAL MALAYSIA
   \par\vspace{3\onelineskip}%
   \@mtsubmissionyear\par%
@@ -454,9 +455,9 @@
   \vfill%
   \textbf{\MakeUppercase{\theauthor}}\par%
   \vfill%
-  Thesis submitted to \textbf{Universiti Pertahanan Nasional Malaysia}, in fulfillment of the requirements of the Degree of \@mtdegree\par
-  \vfill
-  \textbf{\@mtsubmissionmonth\space\@mtsubmissionyear}\par%
+  {\justifying\noindent\sloppy Thesis submitted to \if@undergrad\else Centre for Graduate Studies,\space\fi Universiti Pertahanan Nasional Malaysia, in fulfilment for the requirements of the Degree of \@mtdegree\space(\@mtstudyfield)\par}
+  %\vfill
+  \@mtsubmissionmonth\space\@mtsubmissionyear\par%
   \end{titlingpage*}%
 }
 
@@ -551,7 +552,7 @@
   }{}%
   \SingleSpacing%
   \if@undergrad%
-    This thesis was submitted to the \@mtfaculty, University Pertahanan Nasional Malaysia and has been accepted as partial fulfillment of the requirement for the Bachelors degree in \textbf{\@mtbachprogramme}.%
+    This thesis was submitted to the \@mtfaculty, Universiti Pertahanan Nasional Malaysia and has been accepted as partial fulfillment of the requirement for the Bachelor's degree in \textbf{\@mtstudyfield}. %
   \else%
     This thesis was submitted to the Senate of Universiti Pertahanan Nasional Malaysia and has been accepted as fulfillment of the requirement for the \textbf{\@mtdegree}.%
   \fi
@@ -571,7 +572,7 @@
   \SingleSpacing\abnormalparskip{\onelineskip}%\enlargethispage{\baselineskip}%
   { \centering%
     \rule{\textwidth}{1.5pt}\par
-    \textbf{UNIVERSITY PERTAHANAN NASIONAL MALAYSIA}\par
+    \textbf{UNIVERSITI PERTAHANAN NASIONAL MALAYSIA}\par
     DECLARATION OF THESIS\par
   }
 

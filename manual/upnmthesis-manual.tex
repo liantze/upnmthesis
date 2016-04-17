@@ -1,3 +1,4 @@
+% \PassOptionsToPackage{gray}{xcolor}
 \documentclass[a4paper,nofonts,raggedright,titlepage,openany]{tufte-book}
 
 % \usepackage[utf8]{inputenc}
@@ -65,12 +66,13 @@
 \setlist[itemize,enumerate]{noitemsep}
 
 \usepackage[cachedir={_minted}]{minted}
-\setminted[latex]{breaklines,breaksymbolleft={\phantom{\ttfamily aaaa}}}
+\setminted[latex]{breaklines,breaksymbolleft={\phantom{\ttfamily aaaa}},bgcolor={Beige!30!white}}
 \setmintedinline{bgcolor={Beige!30!white}}
 
 \usepackage{mdframed}
 \mdfsetup{backgroundcolor=Beige!30!white,hidealllines=true}
-\surroundwithmdframed{minted}
+% \mdfsetup{hidealllines=true}
+% \surroundwithmdframed{minted}
 
 \usepackage{silence}
 \WarningFilter{latex}{Marginpar on page}
@@ -89,11 +91,12 @@
 }
 
 \begin{document}
+% \usemintedstyle{bw}
 
 \maketitle
 
 % \begin{abstract}
-\texttt{upnmthesis} is a \LaTeX\ class \marginnote{The latest version of this template can be downloaded from \url{http://liantze.penguinattack/latextypesetting.html\#upnmthesis}.} for authoring theses that fulfil formatting specifications required by Universiti Pertahanan Nasional Malaysia (\textsc{upnm}). This class and template was commissioned by the university's Centre of Graduate Studies in October, 2015, for both undergraduate and postgraduate theses.
+\texttt{upnmthesis} is a \LaTeX\ class \marginnote{The latest version of this template can be downloaded from \url{http://liantze.penguinattack.org/latextypesetting.html\#upnmthesis}.} for authoring theses that fulfil formatting specifications required by Universiti Pertahanan Nasional Malaysia (\textsc{upnm}). This class and template was commissioned by the university's Centre of Graduate Studies in October, 2015, for both undergraduate and postgraduate theses.
 
 A sample \directory{sample-thesis.tex}, as well as relevant sample chapters, are included in the package,\marginnote{\texttt{upnmthesis} is available as a template on Overleaf.} which I recommend you modify for your own thesis write-up. (You can rename it, but I'll stick with the file name `\texttt{sample-thesis.tex}' throughout this guide.)
 % \end{abstract}
@@ -229,16 +232,16 @@ Only abbreviations that are actually called in the main text \marginnote{section
 
 \subsection{Information about Your Thesis}
 
-Modify the following lines in the template to suit your own thesis. These information will be used to generate the cover and title pages, as well as various forms in the thesis. Don't forget to specify your \mintinline{latex}{\faculty} and \mintinline{latex}{\bachprogramme} if you have specified the \texttt{undergrad} document option.
+Modify the following lines in the template to suit your own thesis. These information will be used to generate the cover and title pages, as well as various forms in the thesis. Don't forget to specify your \mintinline{latex}{\faculty}  if you have specified the \texttt{undergrad} document option.
 
 \begin{minted}{latex}
 \author{Your Name}
 \title{Your Thesis Title}
 \degree{Your Degree (e.g. Doctor of Philosophy)}
+\studyfield{Computer Science}
 
-%% If Bachelor programme, you'll need to uncomment 
-%% and specify the following two lines
-% \bachprogramme{Chemical Engineering}
+%% If Bachelor programme, you'll need to uncomment
+%% and specify the following line
 % \faculty{Faculty of Engineering}
 \submissionyear{2011}
 \submissionmonth{October}
@@ -253,6 +256,7 @@ Modify the following lines in the template to suit your own thesis. These inform
 \subsection{Dedication \& Acknowledgements}
 
 You can create an optional dedication page with \marginnote{Dedications are usually short.}
+
 \begin{minted}{latex}
 \dedication{To my parents.}
 \end{minted}
@@ -270,6 +274,7 @@ Thanks guys. I owe you many.
 Write your abstracts in separate files \marginnote{\directory{sample-abstract.tex} for the English abstract and \directory{sample-msabstract.tex} for the Malay abstract in this example}. These files do not need to contain any headings -- only the abstract text is needed.
 
 Include them in \directory{sample-thesis.tex} like this:
+
 \begin{minted}{latex}
 \abstractfromfile{sample-abstract}
 \msabstractfromfile{sample-msabstract}
@@ -365,6 +370,7 @@ We study the...
 \end{minted}
 
 And \directory{sample-chap-litreview.tex}:
+
 \begin{minted}{latex}
 %!TEX ROOT=sample-thesis.tex
 \chapter{Literature Review}
