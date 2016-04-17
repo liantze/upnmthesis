@@ -1,6 +1,6 @@
 UPNMThesis, a LaTeX class for typesetting a Universiti Pertahanan Nasional
 Malaysia (UPNM) thesis.
-    Copyright (C) 2015  Lim Lian Tze
+    Copyright (C) 2015-2016  Lim Lian Tze
 
     PLEASE READ upnmthesis-manual.pdf.
     You are recommended to use sample-thesis.tex as a starting template.
