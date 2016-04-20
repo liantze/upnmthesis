@@ -5,7 +5,7 @@
 %% http://liantze.penguinattack.org/latextypesetting.html#upnmthesis
 %%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{upnmthesis}[2016/04/06 LaTeX2e class for Universiti Pertahanan Nasional Malaysia (UPNM) v1.0.1.  Copyright (c) 2015--2016 Lian Tze LIM (liantze@gmail.com)]
+\ProvidesClass{upnmthesis}[2016/04/20 LaTeX2e class for Universiti Pertahanan Nasional Malaysia (UPNM) v1.0.2.  Copyright (c) 2015--2016 Lian Tze LIM (liantze@gmail.com)]
 
 \LoadClass[12pt,a4paper,oneside]{memoir}
 \RequirePackage{etoolbox}
@@ -441,7 +441,7 @@
   \MakeUppercase{\theauthor}\par%
   \vfill%
   \MakeUppercase{\@mtdegree}\par%\vspace{3\onelineskip}%
-  UNIVERSITY PERTAHANAN NASIONAL MALAYSIA
+  UNIVERSITI PERTAHANAN NASIONAL MALAYSIA
   \par\vspace{3\onelineskip}%
   \@mtsubmissionyear\par%
   \end{titlingpage*}%
@@ -455,7 +455,7 @@
   \vfill%
   \textbf{\MakeUppercase{\theauthor}}\par%
   \vfill%
-  {\justifying\noindent\sloppy Thesis submitted to \if@undergrad\else Centre for Graduate Studies,\space\fi Universiti Pertahanan Nasional Malaysia, in fulfilment for the requirements of the Degree of \@mtdegree\space(\@mtstudyfield)\par}
+  {\justifying\noindent Thesis submitted to \if@undergrad\else the Centre for Graduate Studies,\space\fi Universiti Pertahanan Nasional Malaysia, in fulfilment of the requirements for the Degree of \@mtdegree\space(\@mtstudyfield)\par}
   %\vfill
   \@mtsubmissionmonth\space\@mtsubmissionyear\par%
   \end{titlingpage*}%
@@ -533,7 +533,7 @@
       \global\toggletrue{approvaladded}%
     }{}%
     \SingleSpacing%
-    I certify that an Examination Committee has met on \textbf{\@mtvivadate} to conduct the final examination of \textbf{\theauthor} on his (or her) degree thesis entitled \textbf{`\thetitle'}. The committee recommends that the student be awared the \@mtdegree.\par
+    I certify that an Examination Committee has met on \textbf{\@mtvivadate} to conduct the final examination of \textbf{\theauthor} on his (or her) degree thesis entitled \textbf{`\thetitle'}. The committee recommends that the student be awarded the \@mtdegree\space(\@mtstudyfield).\par
     Members of the Examination Committee were as follows.\par
     \committee
   }{
@@ -554,7 +554,7 @@
   \if@undergrad%
     This thesis was submitted to the \@mtfaculty, Universiti Pertahanan Nasional Malaysia and has been accepted as partial fulfillment of the requirement for the Bachelor's degree in \textbf{\@mtstudyfield}. %
   \else%
-    This thesis was submitted to the Senate of Universiti Pertahanan Nasional Malaysia and has been accepted as fulfillment of the requirement for the \textbf{\@mtdegree}.%
+    This thesis was submitted to the Senate of Universiti Pertahanan Nasional Malaysia and has been accepted as fulfillment of the requirement for the degree of \textbf{\@mtdegree\space(\@mtstudyfield)}. %
   \fi
   The members of the Supervisory Committee were as follows.\par
   \committee

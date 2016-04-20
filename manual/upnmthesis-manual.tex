@@ -318,12 +318,15 @@ The Supervisory Commitee approval \marginnote{The wording for Supervisory Commit
 \begin{minted}{latex}
 \begin{supervisoryapproval}
   % Supervisory Committee Chairman
-  \member[title={Associate Professor},             role={Chairman},                           department={Faculty of Engineering}]
+  \member[title={Associate Professor},             role={Main Supervisor},                           department={Faculty of Engineering}]
     {Name of Chairperson, PhD}
   % Supervisory Committee Member 1
-  \member[title={Ir.}, department={Faculty of Engineering}]{Name of Member 1, PhD}
+  \member[title={Ir.}, role={Co-Supervisor},
+          department={Faculty of Engineering}]
+  {Name of Member 1, PhD}
   % Supervisory Committee Member 2
-  \member[department={Faculty of Engineering}]
+  \member[role={Co-Supervisor},
+          department={Faculty of Engineering}]
     {Name of Member 2, PhD}
 \end{supervisoryapproval}
 

@@ -1,5 +1,10 @@
 BRIEF CHANGELOG
 ===============
+v1.0.2 April 20 2016
+   - Fixed more typos on cover and title page.
+   - Changed supervisory committee member roles to
+     supervisor and co-supervisor.
+
 v1.0.1 April 6 2016
    - Fixed typo and spacing error on cover.
    - Added \studyfield for both postgrad and bachelor.
